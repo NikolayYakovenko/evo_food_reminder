@@ -1,0 +1,70 @@
+{
+  "name": "evo_food_reminder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --no-cache",
+    "test:coverage": "jest --coverage",
+    "start": "NODE_ENV=production node server.js",
+    "server": "node server.js",
+    "build": "webpack --progress --mode=production",
+    "dev": "webpack -w --progress --mode=development --env.reload",
+    "analyze": "webpack -w --progress --mode=development --env.analyze",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false NODE_ENV=production webpack --mode=production"
+  },
+  "author": "Mykola Yakovenko",
+  "license": "ISC",
+  "engines": {
+    "node": "^8.6.0"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.11",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.9.1",
+    "fetch-mock": "^7.0.7",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^23.6.0",
+    "react-test-renderer": "^16.5.2",
+    "style-loader": "^0.21.0",
+    "svg-sprite-loader": "^4.1.3",
+    "webpack": "^4.29.3",
+    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-livereload-plugin": "^2.2.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "classnames": "^2.2.6",
+    "compression": "^1.7.3",
+    "express": "^4.16.3",
+    "face-api.js": "^0.18.0",
+    "history": "^4.7.2",
+    "morgan": "^1.9.0",
+    "prop-types": "^15.7.1",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "request": "^2.88.0",
+    "webpack-cli": "^3.0.4"
+  }
+}
