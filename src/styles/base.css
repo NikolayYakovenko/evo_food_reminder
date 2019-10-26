@@ -39,3 +39,7 @@ a:hover {
     color: #00a1cd;
     text-decoration: underline;
 }
+
+canvas {
+    max-height: 100%;
+}

@@ -1,0 +1,22 @@
+.photo {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+}
+
+.videoWrapper {
+    position: relative;
+    margin: 30px 0;
+}
+
+.canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}

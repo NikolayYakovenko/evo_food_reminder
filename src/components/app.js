@@ -6,7 +6,8 @@ import '../styles/base.css';
 
 import { Home } from './home/home';
 import { MainPage } from './mainPage/mainPage';
-import { StatisticPage } from './statisticPage/statisticPage';
+import { DetectionPage } from './detectionPage/detectionPage';
+import { RecognitionPage } from './recognitionPage/recognitionPage';
 
 import { NotFoundRoute } from './ui/notFoundRoute/notFoundRoute';
 
@@ -17,7 +18,8 @@ export const App = () => {
             <Home>
                 <Switch>
                     <Route path='/' exact component={MainPage} />
-                    <Route path='/stat' exact component={StatisticPage} />
+                    <Route path='/detection' exact component={DetectionPage} />
+                    <Route path='/recognition' exact component={RecognitionPage} />
                     <Route component={NotFoundRoute} />
                 </Switch>
             </Home>
