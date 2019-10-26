@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 
@@ -64,6 +65,10 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new CleanWebpackPlugin(['dist/js', 'dist/images']),
+            new CopyWebpackPlugin([{
+                from: path.resolve(__dirname, 'src', 'images'),
+                to: path.resolve(__dirname, 'dist', 'images'),
+            }]),
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, 'src', 'index.html'),
                 inject: 'body',

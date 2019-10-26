@@ -1,24 +1,14 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import cs from 'classnames';
-
 import * as faceapi from 'face-api.js';
-
-import { Input } from '../ui/input/input';
-import { Spinner } from '../ui/spinner/spinner';
 
 import css from './mainPage.css';
 
 
-const ENTER_KEY = 13;
 const MODEL_URL = '/models';
 
 export class MainPage extends React.Component {
-    static propTypes = {
-        fetching: PropTypes.bool,
-    }
-
     constructor(props) {
         super(props);
 
@@ -27,20 +17,15 @@ export class MainPage extends React.Component {
     }
 
     state = {
-        searchValue: '',
         isModelLoaded: false,
         detectionOn: false,
     };
 
     async componentDidMount() {
-        window.scrollTo(0, 0);
-        this.inputRef.current.addEventListener('keyup', this.makeSearch);
-
         await this.initDetection();
     }
 
     componentWillUnmount() {
-        this.inputRef.current.removeEventListener('keyup', this.makeSearch);
         this.stopDetection();
     }
 
@@ -51,7 +36,7 @@ export class MainPage extends React.Component {
         const videoEl = document.getElementById('inputVideo');
         const mtcnnForwardParams = {
             // limiting the search space to larger faces for webcam detection
-            minFaceSize: 100,
+            minFaceSize: 99,
         };
         const mtcnnResults = await faceapi.mtcnn(videoEl, mtcnnForwardParams);
 
@@ -156,71 +141,41 @@ export class MainPage extends React.Component {
         faceapi.drawLandmarks(canvas, faceLandmarks, drawLandmarksOptions);
     }
 
-    makeSearch = (event) => {
-        const { searchValue } = this.state;
-        const searchNotEmpty = searchValue.length > 0;
-
-        if (event.keyCode === ENTER_KEY && searchNotEmpty) {
-            console.log(this.state.searchValue);
-        }
-    }
-
-    onSearchValueChange(event) {
-        this.setState({
-            searchValue: event.target.value,
-        });
-    }
-
     render() {
-        const { fetching } = this.props;
-
         return (
             <React.Fragment>
-                <Input
-                    refFn={this.inputRef}
-                    className={css.searchFieldWrapper}
-                    value={this.state.searchValue}
-                    onChange={event => this.onSearchValueChange(event)}
-                    placeholder='@slack user name'
-                />
-                {fetching ?
-                    <div className={css.spinnerWrapper}>
-                        <Spinner />
+                <h1>Main page</h1>
+                <Link to='/detection'>Detection page</Link>
+                &nbsp;|&nbsp;
+                <Link to='/recognition'>Recognition page</Link>
+                <div className={css.videoWrapper}>
+                    <video
+                        className={css.video}
+                        onPlay={this.startDetection}
+                        id='inputVideo'
+                        autoPlay
+                        muted
+                    >
+                        <track kind='captions' />
+                    </video>
+                    <canvas className={css.canvas} id='overlayElem' />
+                </div>
+                {this.state.isModelLoaded ?
+                    <div className={css.buttonWrapper}>
+                        <button
+                            className={cs(css.button, css.mainButton)}
+                            onClick={this.initDetection}
+                        >
+                            Start detection
+                        </button>
+                        <button
+                            className={cs(css.button, css.secondaryButton)}
+                            onClick={this.stopDetection}
+                        >
+                            Stop detection
+                        </button>
                     </div>
-                    :
-                    <Fragment>
-                        <h1>Main page</h1>
-                        <Link to='stat/'>Statistic Page</Link>
-                        <div className={css.videoWrapper}>
-                            <video
-                                className={css.video}
-                                onPlay={this.startDetection}
-                                id='inputVideo'
-                                autoPlay
-                                muted
-                            >
-                                <track kind='captions' />
-                            </video>
-                            <canvas className={css.canvas} id='overlayElem' />
-                        </div>
-                        {this.state.isModelLoaded ?
-                            <div className={css.buttonWrapper}>
-                                <button
-                                    className={cs(css.button, css.mainButton)}
-                                    onClick={this.initDetection}
-                                >
-                                    Start detection
-                                </button>
-                                <button
-                                    className={cs(css.button, css.secondaryButton)}
-                                    onClick={this.stopDetection}
-                                >
-                                    Stop detection
-                                </button>
-                            </div>
-                            : null
-                        }
-                    </Fragment>
+                    : null
                 }
             </React.Fragment>
         );
