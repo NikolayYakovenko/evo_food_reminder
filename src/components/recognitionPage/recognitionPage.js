@@ -9,7 +9,7 @@ import css from './recognitionPage.css';
 const MODEL_URL = '/models';
 const IMAGES_URL = '/images';
 
-const LABELS = [
+const PHOTOS = [
     'julia', 'julia1',
     'tanya', 'tanya1',
     'dima', 'dima1',
@@ -51,7 +51,7 @@ export const RecognitionPage = () => {
     useEffect(() => { loadModel(); }, []);
 
     const createLabeledDescriptors = async () => {
-        const labeledFaceDescriptors = await Promise.all(LABELS
+        const labeledFaceDescriptors = await Promise.all(PHOTOS
             .map(async (photoName) => {
                 // fetch image data from urls and convert blob to HTMLImage element
                 const imgUrl = `${IMAGES_URL}/${photoName}.jpg`;
@@ -169,7 +169,7 @@ export const RecognitionPage = () => {
             &nbsp;|&nbsp;
             <Link to='/detection'>Detection page</Link>
             <div>
-                <button onClick={recognizePhoto} disabled={isLoading}>
+                <button onClick={recognizePhoto} disabled={isLoading} type='button'>
                     Recognize
                 </button>
                 {isLoading && loadingMessage ?

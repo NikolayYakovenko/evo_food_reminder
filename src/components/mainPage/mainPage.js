@@ -36,7 +36,7 @@ export class MainPage extends React.Component {
         const videoEl = document.getElementById('inputVideo');
         const mtcnnForwardParams = {
             // limiting the search space to larger faces for webcam detection
-            minFaceSize: 99,
+            minFaceSize: 50,
         };
         const mtcnnResults = await faceapi.mtcnn(videoEl, mtcnnForwardParams);
 
@@ -67,6 +67,7 @@ export class MainPage extends React.Component {
                 const track = stream.getTracks()[0];
                 track.stop();
             },
+            // eslint-disable-next-line no-console
             err => console.error(err),
         );
 
@@ -91,6 +92,7 @@ export class MainPage extends React.Component {
                     isModelLoaded: true,
                 });
             } catch (error) {
+                // eslint-disable-next-line no-console
                 console.error(`Can not load model ${error}`);
             }
         }
@@ -101,6 +103,7 @@ export class MainPage extends React.Component {
         navigator.getUserMedia(
             { video: {} },
             (stream) => { videoEl.srcObject = stream; },
+            // eslint-disable-next-line no-console
             err => console.error(err),
         );
     }
@@ -165,12 +168,14 @@ export class MainPage extends React.Component {
                         <button
                             className={cs(css.button, css.mainButton)}
                             onClick={this.initDetection}
+                            type='button'
                         >
                             Start detection
                         </button>
                         <button
                             className={cs(css.button, css.secondaryButton)}
                             onClick={this.stopDetection}
+                            type='button'
                         >
                             Stop detection
                         </button>
