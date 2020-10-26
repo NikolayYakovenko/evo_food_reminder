@@ -104,7 +104,7 @@ export const DetectionPage = () => {
                 />
                 <canvas className={css.canvas} id='overlay' />
             </div>
-            <button onClick={() => detectionWithLandmarks('photoForTest', 'overlay')}>
+            <button onClick={() => detectionWithLandmarks('photoForTest', 'overlay')} type='button'>
                 Detect
             </button>
 

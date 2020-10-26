@@ -28,11 +28,11 @@ module.exports = (env, argv) => {
                         {
                             loader: 'css-loader',
                             options: {
-                                modules: true,
+                                modules: {
+                                    localIdentName: '[name]__[local]__[hash:base64:5]',
+                                    localIdentContext: __dirname,
+                                },
                                 importLoaders: 1,
-                                context: __dirname,
-                                localIdentName: '[name]__[local]__[hash:base64:5]',
-                                minimize: true,
                             },
                         },
                     ],
@@ -65,10 +65,18 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new CleanWebpackPlugin(['dist/js', 'dist/images']),
-            new CopyWebpackPlugin([{
-                from: path.resolve(__dirname, 'src', 'images'),
-                to: path.resolve(__dirname, 'dist', 'images'),
-            }]),
+            new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        from: path.resolve(__dirname, 'src', 'images'),
+                        to: path.resolve(__dirname, 'dist', 'images'),
+                    },
+                    {
+                        from: path.resolve(__dirname, 'models'),
+                        to: path.resolve(__dirname, 'dist', 'models'),
+                    },
+                ],
+            }),
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, 'src', 'index.html'),
                 inject: 'body',
